@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nabil & Noor Invitation</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Georgia, serif;
+    background: radial-gradient(circle at top, #2b0f1f, #000);
+}
+
+/* 🎬 INTRO */
+#intro {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #1a0a12, #000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 10;
+    text-align: center;
+}
+
+#intro h1 {
+    color: #ffd6e7;
+    font-size: 26px;
+    animation: fadeIn 2s ease;
+}
+
+#enterBtn {
+    margin-top: 20px;
+    padding: 14px 24px;
+    border-radius: 30px;
+    border: none;
+    background: #ff4d88;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* ✨ fade */
+@keyframes fadeIn {
+    from {opacity:0; transform: scale(0.9);}
+    to {opacity:1; transform: scale(1);}
+}
+
+/* 💌 SCENE WRAPPER */
+#scene {
+    display: none;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ✉️ ENVELOPE (ROMANTIC PAPER STYLE) */
+#envelope {
+    width: 320px;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+    animation: floatIn 1.5s ease;
+}
+
+@keyframes floatIn {
+    from {opacity:0; transform: translateY(30px);}
+    to {opacity:1; transform: translateY(0);}
+}
+
+#base {
+    width: 100%;
+    height: 100%;
+    background: #fff0f5;
+    border-radius: 12px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+}
+
+#flap {
+    width: 100%;
+    height: 100%;
+    background: #ffd6e7;
+    clip-path: polygon(0 0, 100% 0, 50% 50%);
+    position: absolute;
+    top: 0;
+    transform-origin: top;
+    transition: 1s ease;
+}
+
+/* 💌 INVITATION */
+#card {
+    display: none;
+    position: absolute;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    color: #ffe3ee;
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    width: 90%;
+    max-width: 420px;
+    animation: fadeUp 2s ease;
+}
+
+@keyframes fadeUp {
+    from {opacity:0; transform: translateY(30px);}
+    to {opacity:1; transform: translateY(0);}
+}
+
+h1 { color:#ff7aa8; }
+h2 { color:white; }
+
+.btn {
+    margin-top: 12px;
+    padding: 12px 18px;
+    background: #ff4d88;
+    color: white;
+    border-radius: 20px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* 🌸 PETALS */
+.petal {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: #ffc1d6;
+    border-radius: 50%;
+    animation: fall 8s linear infinite;
+}
+
+@keyframes fall {
+    0% {transform: translateY(-10vh); opacity:0;}
+    50% {opacity:1;}
+    100% {transform: translateY(100vh); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 MUSIC -->
+<audio id="music" loop>
+    <source src="YOUR_SONG.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🎬 INTRO -->
+<div id="intro">
+    <h1>💍 Nabil & Noor<br>Invitation</h1>
+    <button id="enterBtn">Tap to Enter</button>
+</div>
+
+<!-- 💌 SCENE -->
+<div id="scene">
+
+    <div id="envelope">
+        <div id="base"></div>
+        <div id="flap"></div>
+    </div>
+
+    <div id="card">
+        <h1>💖 You're Invited 💖</h1>
+        <p>Engagement of</p>
+        <h2>Nabil & Noor</h2>
+        <p>31 July 2026</p>
+
+        <a class="btn" target="_blank"
+        href="https://maps.app.goo.gl/y4N6u7wCfrFiYyLc8">
+        📍 View Location
+        </a>
+    </div>
+
+</div>
+
+<script>
+
+const intro = document.getElementById("intro");
+const scene = document.getElementById("scene");
+const envelope = document.getElementById("envelope");
+const flap = document.getElementById("flap");
+const card = document.getElementById("card");
+const music = document.getElementById("music");
+
+music.volume = 0;
+
+/* 🎬 ENTER */
+document.getElementById("enterBtn").onclick = () => {
+    intro.style.display = "none";
+    scene.style.display = "flex";
+};
+
+/* ✉️ OPEN ENVELOPE */
+envelope.onclick = () => {
+
+    flap.style.transform = "rotateX(180deg)";
+
+    setTimeout(()=>{
+
+        envelope.style.display = "none";
+        card.style.display = "block";
+
+        // 🎵 MUSIC starts ONLY after interaction
+        music.play().catch(()=>{});
+
+        let v = 0;
+        let fade = setInterval(()=>{
+            if(v < 1){
+                v += 0.02;
+                music.volume = v;
+            } else clearInterval(fade);
+        },100);
+
+    },1000);
+};
+
+/* 🌸 romantic petals */
+setInterval(()=>{
+    let p=document.createElement("div");
+    p.className="petal";
+    p.style.left=Math.random()*100+"vw";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),8000);
+},250);
+
+</script>
+
+</body>
+</html>
