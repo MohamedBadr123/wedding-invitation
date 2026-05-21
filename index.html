@@ -1,495 +1,302 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nabil & Nour</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-
-<style>
-
-/* RESET */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  font-family:Georgia, serif;
-  background:black;
-  overflow:hidden;
-}
-
-body.scrollable{
-  overflow:auto;
-}
-
-/* BLUR */
-#blurLayer{
-  position:fixed;
-  width:100%;
-  height:100%;
-  backdrop-filter:blur(0px);
-  background:rgba(0,0,0,0.25);
-  transition:1s ease;
-  z-index:1;
-}
-
-.blur1{
-  backdrop-filter:blur(5px);
-}
-
-.blur2{
-  backdrop-filter:blur(10px);
-}
-
-/* SCREEN */
-.screen{
-  position:fixed;
-  width:100%;
-  height:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  z-index:5;
-}
-
-/* BUTTON */
-#enterBtn{
-  padding:15px 30px;
-  border-radius:30px;
-  border:none;
-  background:#ff4d88;
-  color:white;
-  font-size:18px;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-#enterBtn:hover{
-  transform:scale(1.05);
-}
-
-/* HEARTS */
-.heart{
-  position:fixed;
-  width:12px;
-  height:12px;
-  background:#ff4d88;
-  transform:rotate(45deg);
-  animation:float 6s linear infinite;
-  z-index:2;
-}
-
-.heart::before,
-.heart::after{
-  content:'';
-  position:absolute;
-  width:12px;
-  height:12px;
-  background:#ff4d88;
-  border-radius:50%;
-}
-
-.heart::before{
-  top:-6px;
-}
-
-.heart::after{
-  left:-6px;
-}
-
-@keyframes float{
-
-  0%{
-    transform:translateY(100vh) rotate(45deg);
-    opacity:0;
-  }
-
-  50%{
-    opacity:1;
-  }
-
-  100%{
-    transform:translateY(-10vh) rotate(45deg);
-    opacity:0;
-  }
-}
-
-/* ENVELOPE */
-#scene2{
-  display:none;
-}
-
-#envelope{
-  width:320px;
-  height:220px;
-  position:relative;
-  cursor:pointer;
-  perspective:1000px;
-}
-
-/* BODY */
-.body{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:#ffe4ec;
-  border-radius:12px;
-  z-index:1;
-}
-
-/* LETTER */
-.letter{
-  position:absolute;
-  width:85%;
-  height:80%;
-  background:white;
-  top:10%;
-  left:7.5%;
-  border-radius:10px;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-
-  transform:translateY(60px) scale(0.9);
-  opacity:0;
-
-  z-index:4;
-  transition:0.8s cubic-bezier(0.22,1,0.36,1);
-}
-
-.letter h1{
-  font-family:'Great Vibes';
-  color:#d63384;
-  font-size:42px;
-}
-
-/* FLAP */
-.flap{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:#ffccd5;
-  clip-path:polygon(0 0,100% 0,50% 50%);
-  transform-origin:top;
-  z-index:3;
-  transition:0.6s ease;
-}
-
-.open .flap{
-  transform:rotateX(180deg);
-}
-
-.showLetter .letter{
-  transform:translateY(-90px) scale(1);
-  opacity:1;
-}
-
-/* FINAL PAGE */
-#page{
-  display:none;
-  min-height:100vh;
-  background:linear-gradient(#1a0a12,#000);
-  color:white;
-}
-
-/* SECTION */
-.section{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:40px;
-  padding:40px;
-  flex-wrap:wrap;
-}
-
-/* IMAGE */
-.photo{
-  width:280px;
-  border-radius:20px;
-  box-shadow:0 0 30px rgba(255,255,255,0.2);
-}
-
-/* TEXT */
-.names{
-  font-family:'Great Vibes';
-  font-size:65px;
-  color:#ff7aa8;
-}
-
-.sub{
-  font-size:24px;
-  margin-top:10px;
-}
-
-#countdown{
-  margin-top:30px;
-  font-size:36px;
-  font-weight:bold;
-  letter-spacing:2px;
-}
-
-/* LOCATION */
-#location{
-  padding:100px 20px;
-  text-align:center;
-}
-
-#location h2{
-  font-size:42px;
-  margin-bottom:30px;
-}
-
-.map{
-  width:90%;
-  max-width:700px;
-  height:350px;
-  margin:auto;
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 0 30px rgba(255,255,255,0.15);
-}
-
-.map iframe{
-  width:100%;
-  height:100%;
-  border:0;
-}
-
-/* MAP BUTTON */
-.mapBtn{
-  display:inline-block;
-  margin-top:25px;
-  padding:14px 30px;
-  background:#ff4d88;
-  color:white;
-  text-decoration:none;
-  border-radius:30px;
-  font-size:18px;
-  transition:0.3s;
-}
-
-.mapBtn:hover{
-  transform:scale(1.05);
-  background:#ff2f73;
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nabil & Nour</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: Georgia, serif;
+      background: black;
+      overflow: hidden;
+      color: white;
+    }
+    body.scrollable { overflow: auto; }
+    #blurLayer {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(0px);
+      background: rgba(0,0,0,0.25);
+      transition: 1s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .blur1 { backdrop-filter: blur(5px); }
+    .blur2 { backdrop-filter: blur(10px); }
+    .screen {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 5;
+    }
+    #enterBtn {
+      padding: 15px 35px;
+      border: none;
+      border-radius: 30px;
+      background: #ff4d88;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    #enterBtn:hover { transform: scale(1.05); background: #ff2f73; }
+    .heart {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: #ff4d88;
+      transform: rotate(45deg);
+      animation: float 6s linear infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .heart::before, .heart::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #ff4d88;
+      border-radius: 50%;
+    }
+    .heart::before { top: -6px; }
+    .heart::after  { left: -6px; }
+    @keyframes float {
+      0%   { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+      50%  { opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+    }
+    #scene2 { display: none; }
+    #envelope {
+      width: 320px;
+      height: 220px;
+      position: relative;
+      cursor: pointer;
+      perspective: 1000px;
+    }
+    .env-body {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #ffe4ec;
+      border-radius: 12px;
+      z-index: 1;
+    }
+    .letter {
+      position: absolute;
+      width: 85%;
+      height: 80%;
+      background: white;
+      top: 10%;
+      left: 7.5%;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform: translateY(60px) scale(0.9);
+      opacity: 0;
+      z-index: 4;
+      transition: 0.8s cubic-bezier(0.22,1,0.36,1);
+    }
+    .letter h1 { font-family: 'Great Vibes'; color: #d63384; font-size: 42px; }
+    .letter p  { color: black; }
+    .flap {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #ffccd5;
+      clip-path: polygon(0 0,100% 0,50% 50%);
+      transform-origin: top;
+      z-index: 3;
+      transition: 0.6s ease;
+    }
+    .open .flap         { transform: rotateX(180deg); }
+    .showLetter .letter { transform: translateY(-90px) scale(1); opacity: 1; }
+    #page {
+      display: none;
+      min-height: 100vh;
+      background: linear-gradient(#1a0a12, #000);
+    }
+    .section {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding: 40px;
+    }
+    .photo {
+      width: 320px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255,255,255,0.2);
+      background: #222;
+    }
+    .names { font-family: 'Great Vibes'; font-size: 70px; color: #ff7aa8; }
+    .sub   { font-size: 24px; margin-top: 10px; }
+    #countdown { margin-top: 30px; font-size: 36px; font-weight: bold; }
+    #location { padding: 100px 20px; text-align: center; }
+    #location h2 { font-size: 42px; margin-bottom: 30px; }
+    .map {
+      width: 90%;
+      max-width: 700px;
+      height: 380px;
+      margin: auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(255,255,255,0.15);
+    }
+    .map iframe { width: 100%; height: 100%; border: 0; pointer-events: none; }
+    .mapBtn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 15px 35px;
+      background: #ff4d88;
+      color: white !important;
+      text-decoration: none;
+      border-radius: 30px;
+      font-size: 18px;
+      font-family: Georgia, serif;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+      z-index: 10;
+    }
+    .mapBtn:hover { transform: scale(1.05); background: #ff2f73; }
+  </style>
 </head>
-
 <body>
 
-<div id="blurLayer"></div>
+  <div id="blurLayer"></div>
 
-<audio id="music" loop>
-  <source src="01.Wayah.mp3" type="audio/mpeg">
-</audio>
+  <audio id="music" loop>
+    <source src="01.Wayah.mp3" type="audio/mpeg">
+  </audio>
 
-<!-- INTRO -->
-<div id="intro" class="screen">
-
-  <h1 style="color:#ffd6e7; margin-bottom:20px;">
-    💍 Invitation
-  </h1>
-
-  <button id="enterBtn">
-    Enter Invitation
-  </button>
-
-</div>
-
-<!-- ENVELOPE -->
-<div id="scene2" class="screen">
-
-  <div id="envelope">
-
-    <div class="body"></div>
-
-    <div class="letter">
-      <h1>Nabil & Nour</h1>
-      <p>Engagement</p>
-    </div>
-
-    <div class="flap"></div>
-
+  <!-- INTRO -->
+  <div id="intro" class="screen">
+    <h1 style="color:#ffd6e7; margin-bottom:20px;">💍 Invitation</h1>
+    <button id="enterBtn">Enter Invitation</button>
   </div>
 
-</div>
+  <!-- ENVELOPE -->
+  <div id="scene2" class="screen">
+    <div id="envelope">
+      <div class="env-body"></div>
+      <div class="letter">
+        <h1>Nabil &amp; Nour</h1>
+        <p>Engagement</p>
+      </div>
+      <div class="flap"></div>
+    </div>
+  </div>
 
-<!-- FINAL PAGE -->
-<div id="page">
+  <!-- FINAL PAGE -->
+  <div id="page">
 
-  <div class="section">
+    <div class="section">
+      <div>
+        <div class="names">Nabil &amp; Nour</div>
+        <div class="sub">Engagement</div>
+        <div id="countdown"></div>
+      </div>
+      <img
+        src="nabil_photo.png"
+        class="photo"
+        alt="Couple Photo"
+        onerror="this.src='https://placehold.co/320x320/222/fff?text=Photo';">
+    </div>
 
-    <div>
+    <!-- LOCATION -->
+    <div id="location">
+      <h2>📍 Our Location</h2>
 
-      <div class="names">
-        Nabil & Nour
+      <div class="map">
+        <iframe
+          src="https://maps.google.com/maps?q=30.1185186,31.3581914&z=16&output=embed"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
       </div>
 
-      <div class="sub">
-        Engagement
-      </div>
-
-      <div id="countdown"></div>
-
-    </div>
-
-    <img src="nabil_photo.png" class="photo">
-
-  </div>
-
-  <!-- LOCATION -->
-  <div id="location">
-
-    <h2>📍 Our Location</h2>
-
-    <div class="map">
-
-      <iframe
-        src="https://maps.google.com/maps?q=30.101884,31.325387&z=15&output=embed">
-      </iframe>
+      <a
+        href="https://maps.app.goo.gl/tqFv5usSpEN3RZQ26"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mapBtn">
+        Open in Google Maps
+      </a>
 
     </div>
-
-    <!-- GOOGLE MAPS BUTTON -->
-    <a
-      href="https://maps.app.goo.gl/QeLkRqvxnw1ZSN6P6"
-      target="_blank"
-      class="mapBtn">
-
-      Open in Google Maps
-
-    </a>
-
   </div>
 
-</div>
+  <script>
+    const intro    = document.getElementById("intro");
+    const scene2   = document.getElementById("scene2");
+    const envelope = document.getElementById("envelope");
+    const page     = document.getElementById("page");
+    const blur     = document.getElementById("blurLayer");
+    const music    = document.getElementById("music");
+    let clicked    = false;
 
-<script>
+    document.getElementById("enterBtn").onclick = () => {
+      intro.style.display  = "none";
+      scene2.style.display = "flex";
+    };
 
-const intro = document.getElementById("intro");
-const scene2 = document.getElementById("scene2");
-const envelope = document.getElementById("envelope");
-const page = document.getElementById("page");
-const blur = document.getElementById("blurLayer");
-const music = document.getElementById("music");
+    envelope.onclick = () => {
+      if (clicked) return;
+      clicked = true;
+      envelope.classList.add("open");
+      blur.classList.add("blur1");
+      setTimeout(() => {
+        envelope.classList.add("showLetter");
+        blur.classList.add("blur2");
+      }, 500);
+      setTimeout(() => {
+        scene2.style.display = "none";
+        page.style.display   = "block";
+        document.body.classList.add("scrollable");
+        blur.style.display   = "none";
+        startCountdown();
+        music.play().catch(() => {});
+      }, 3000);
+    };
 
-let clicked = false;
-
-/* ENTER BUTTON */
-document.getElementById("enterBtn").onclick = () => {
-
-  intro.style.display = "none";
-  scene2.style.display = "flex";
-
-};
-
-/* ENVELOPE CLICK */
-envelope.onclick = () => {
-
-  if(clicked) return;
-
-  clicked = true;
-
-  envelope.classList.add("open");
-
-  blur.classList.add("blur1");
-
-  setTimeout(() => {
-
-    envelope.classList.add("showLetter");
-
-    blur.classList.add("blur2");
-
-  }, 500);
-
-  setTimeout(() => {
-
-    scene2.style.display = "none";
-
-    page.style.display = "block";
-
-    document.body.classList.add("scrollable");
-
-    startCountdown();
-
-    music.play().catch(() => {});
-
-  }, 3000);
-};
-
-/* COUNTDOWN */
-function startCountdown(){
-
-  let target =
-    new Date("2026-07-31T18:00:00").getTime();
-
-  setInterval(() => {
-
-    let now = new Date().getTime();
-
-    let diff = target - now;
-
-    if(diff <= 0){
-
-      document.getElementById("countdown").innerHTML =
-        "🎉 It's Time!";
-
-      return;
+    function startCountdown() {
+      const target = new Date("2026-07-31T18:00:00").getTime();
+      setInterval(() => {
+        const diff = target - Date.now();
+        if (diff <= 0) {
+          document.getElementById("countdown").innerHTML = "🎉 It's Time!";
+          return;
+        }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000)  / 60000);
+        const s = Math.floor((diff % 60000)    / 1000);
+        document.getElementById("countdown").innerHTML =
+          d + "d " + h + "h " + m + "m " + s + "s";
+      }, 1000);
     }
 
-    let d =
-      Math.floor(diff / (1000*60*60*24));
-
-    let h =
-      Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-
-    let m =
-      Math.floor((diff % (1000*60*60)) / (1000*60));
-
-    let s =
-      Math.floor((diff % (1000*60)) / 1000);
-
-    document.getElementById("countdown").innerHTML =
-      d + "d " +
-      h + "h " +
-      m + "m " +
-      s + "s";
-
-  }, 1000);
-}
-
-/* HEARTS */
-setInterval(() => {
-
-  let h = document.createElement("div");
-
-  h.className = "heart";
-
-  h.style.left =
-    Math.random() * 100 + "vw";
-
-  document.body.appendChild(h);
-
-  setTimeout(() => {
-
-    h.remove();
-
-  }, 6000);
-
-}, 200);
-
-</script>
+    setInterval(() => {
+      const h = document.createElement("div");
+      h.className  = "heart";
+      h.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 6000);
+    }, 200);
+  </script>
 
 </body>
 </html>
-```
