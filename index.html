@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,8 +37,14 @@ body.scrollable{
   transition:1s ease;
   z-index:1;
 }
-.blur1{backdrop-filter:blur(5px);}
-.blur2{backdrop-filter:blur(10px);}
+
+.blur1{
+  backdrop-filter:blur(5px);
+}
+
+.blur2{
+  backdrop-filter:blur(10px);
+}
 
 /* SCREEN */
 .screen{
@@ -60,6 +67,11 @@ body.scrollable{
   color:white;
   font-size:18px;
   cursor:pointer;
+  transition:0.3s;
+}
+
+#enterBtn:hover{
+  transform:scale(1.05);
 }
 
 /* HEARTS */
@@ -72,7 +84,9 @@ body.scrollable{
   animation:float 6s linear infinite;
   z-index:2;
 }
-.heart::before,.heart::after{
+
+.heart::before,
+.heart::after{
   content:'';
   position:absolute;
   width:12px;
@@ -80,17 +94,36 @@ body.scrollable{
   background:#ff4d88;
   border-radius:50%;
 }
-.heart::before{top:-6px;}
-.heart::after{left:-6px;}
+
+.heart::before{
+  top:-6px;
+}
+
+.heart::after{
+  left:-6px;
+}
 
 @keyframes float{
-  0%{transform:translateY(100vh) rotate(45deg);opacity:0;}
-  50%{opacity:1;}
-  100%{transform:translateY(-10vh) rotate(45deg);opacity:0;}
+
+  0%{
+    transform:translateY(100vh) rotate(45deg);
+    opacity:0;
+  }
+
+  50%{
+    opacity:1;
+  }
+
+  100%{
+    transform:translateY(-10vh) rotate(45deg);
+    opacity:0;
+  }
 }
 
 /* ENVELOPE */
-#scene2{display:none;}
+#scene2{
+  display:none;
+}
 
 #envelope{
   width:320px;
@@ -135,6 +168,7 @@ body.scrollable{
 .letter h1{
   font-family:'Great Vibes';
   color:#d63384;
+  font-size:42px;
 }
 
 /* FLAP */
@@ -181,17 +215,18 @@ body.scrollable{
 .photo{
   width:280px;
   border-radius:20px;
+  box-shadow:0 0 30px rgba(255,255,255,0.2);
 }
 
 /* TEXT */
 .names{
   font-family:'Great Vibes';
-  font-size:50px;
+  font-size:65px;
   color:#ff7aa8;
 }
 
 .sub{
-  font-size:22px;
+  font-size:24px;
   margin-top:10px;
 }
 
@@ -208,19 +243,43 @@ body.scrollable{
   text-align:center;
 }
 
+#location h2{
+  font-size:42px;
+  margin-bottom:30px;
+}
+
 .map{
   width:90%;
-  max-width:600px;
-  height:300px;
-  margin:20px auto;
+  max-width:700px;
+  height:350px;
+  margin:auto;
   border-radius:20px;
   overflow:hidden;
+  box-shadow:0 0 30px rgba(255,255,255,0.15);
 }
 
 .map iframe{
   width:100%;
   height:100%;
   border:0;
+}
+
+/* MAP BUTTON */
+.mapBtn{
+  display:inline-block;
+  margin-top:25px;
+  padding:14px 30px;
+  background:#ff4d88;
+  color:white;
+  text-decoration:none;
+  border-radius:30px;
+  font-size:18px;
+  transition:0.3s;
+}
+
+.mapBtn:hover{
+  transform:scale(1.05);
+  background:#ff2f73;
 }
 
 </style>
@@ -236,13 +295,22 @@ body.scrollable{
 
 <!-- INTRO -->
 <div id="intro" class="screen">
-  <h1 style="color:#ffd6e7;">💍 Invitation</h1>
-  <button id="enterBtn">Enter Invitation</button>
+
+  <h1 style="color:#ffd6e7; margin-bottom:20px;">
+    💍 Invitation
+  </h1>
+
+  <button id="enterBtn">
+    Enter Invitation
+  </button>
+
 </div>
 
 <!-- ENVELOPE -->
 <div id="scene2" class="screen">
+
   <div id="envelope">
+
     <div class="body"></div>
 
     <div class="letter">
@@ -251,28 +319,57 @@ body.scrollable{
     </div>
 
     <div class="flap"></div>
+
   </div>
+
 </div>
 
 <!-- FINAL PAGE -->
 <div id="page">
 
   <div class="section">
+
     <div>
-      <div class="names">Nabil & Nour</div>
-      <div class="sub">Engagement</div>
+
+      <div class="names">
+        Nabil & Nour
+      </div>
+
+      <div class="sub">
+        Engagement
+      </div>
+
       <div id="countdown"></div>
+
     </div>
 
-    <!-- PUT YOUR IMAGE HERE -->
     <img src="nabil_photo.png" class="photo">
+
   </div>
 
+  <!-- LOCATION -->
   <div id="location">
+
     <h2>📍 Our Location</h2>
+
     <div class="map">
-      <iframe src="https://www.google.com/maps?q=30.1185186,31.3581914&z=15&output=embed"></iframe>
+
+      <iframe
+        src="https://maps.google.com/maps?q=30.101884,31.325387&z=15&output=embed">
+      </iframe>
+
     </div>
+
+    <!-- GOOGLE MAPS BUTTON -->
+    <a
+      href="https://maps.app.goo.gl/QeLkRqvxnw1ZSN6P6"
+      target="_blank"
+      class="mapBtn">
+
+      Open in Google Maps
+
+    </a>
+
   </div>
 
 </div>
@@ -286,71 +383,113 @@ const page = document.getElementById("page");
 const blur = document.getElementById("blurLayer");
 const music = document.getElementById("music");
 
-let clicked=false;
+let clicked = false;
 
-/* ENTER */
-document.getElementById("enterBtn").onclick=()=>{
-  intro.style.display="none";
-  scene2.style.display="flex";
+/* ENTER BUTTON */
+document.getElementById("enterBtn").onclick = () => {
+
+  intro.style.display = "none";
+  scene2.style.display = "flex";
+
 };
 
 /* ENVELOPE CLICK */
-envelope.onclick=()=>{
+envelope.onclick = () => {
 
   if(clicked) return;
-  clicked=true;
+
+  clicked = true;
 
   envelope.classList.add("open");
+
   blur.classList.add("blur1");
 
-  setTimeout(()=>{
-    envelope.classList.add("showLetter");
-    blur.classList.add("blur2");
-  },500);
+  setTimeout(() => {
 
-  setTimeout(()=>{
-    scene2.style.display="none";
-    page.style.display="block";
+    envelope.classList.add("showLetter");
+
+    blur.classList.add("blur2");
+
+  }, 500);
+
+  setTimeout(() => {
+
+    scene2.style.display = "none";
+
+    page.style.display = "block";
+
     document.body.classList.add("scrollable");
 
     startCountdown();
-    music.play().catch(()=>{});
-  },3000);
+
+    music.play().catch(() => {});
+
+  }, 3000);
 };
 
-/* COUNTDOWN FIXED */
+/* COUNTDOWN */
 function startCountdown(){
-  let target = new Date("2026-07-31T18:00:00").getTime();
 
-  setInterval(()=>{
+  let target =
+    new Date("2026-07-31T18:00:00").getTime();
+
+  setInterval(() => {
+
     let now = new Date().getTime();
+
     let diff = target - now;
 
     if(diff <= 0){
-      document.getElementById("countdown").innerHTML = "🎉 It's Time!";
+
+      document.getElementById("countdown").innerHTML =
+        "🎉 It's Time!";
+
       return;
     }
 
-    let d = Math.floor(diff/(1000*60*60*24));
-    let h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-    let m = Math.floor((diff%(1000*60*60))/(1000*60));
-    let s = Math.floor((diff%(1000*60))/1000);
+    let d =
+      Math.floor(diff / (1000*60*60*24));
+
+    let h =
+      Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+
+    let m =
+      Math.floor((diff % (1000*60*60)) / (1000*60));
+
+    let s =
+      Math.floor((diff % (1000*60)) / 1000);
 
     document.getElementById("countdown").innerHTML =
-      d+"d "+h+"h "+m+"m "+s+"s";
-  },1000);
+      d + "d " +
+      h + "h " +
+      m + "m " +
+      s + "s";
+
+  }, 1000);
 }
 
 /* HEARTS */
-setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="heart";
-  h.style.left=Math.random()*100+"vw";
+setInterval(() => {
+
+  let h = document.createElement("div");
+
+  h.className = "heart";
+
+  h.style.left =
+    Math.random() * 100 + "vw";
+
   document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-},200);
+
+  setTimeout(() => {
+
+    h.remove();
+
+  }, 6000);
+
+}, 200);
 
 </script>
 
 </body>
 </html>
+```
